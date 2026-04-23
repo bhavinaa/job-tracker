@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>job-tracker — wireframe</title>
+<style>
+  :root{
+    --ink:#222;
+    --line:#bbb;
+    --muted:#777;
+    --bg:#fafaf7;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    margin:0;
+    padding:32px;
+    max-width:1100px;
+    margin-left:auto;
+    margin-right:auto;
+    line-height:1.4;
+    font-size:14px;
+  }
+  header{
+    border-bottom: 1px dashed var(--line);
+    padding-bottom:8px;
+    margin-bottom:24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  header h1{margin:0; font-size:18px; font-weight:500}
+  header .meta{color:var(--muted); font-size:12px}
+  .stamp{
+    display:inline-block;
+    border:1px solid var(--line);
+    padding:2px 8px;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:32px;
+  }
+  .view{
+    border:1px solid var(--line);
+    padding:20px;
+    background:#fff;
+  }
+  .view h2{
+    font-size:13px;
+    font-weight:500;
+    margin:0 0 4px 0;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .view .subtitle{
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:16px;
+  }
+  .metric-row{
+    display:flex;
+    gap:16px;
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--line);
+  }
+  .metric{
+    flex:1;
+  }
+  .metric .num{font-size:22px; font-weight:500}
+  .metric .label{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.03em}
+  .job-row{
+    display:grid;
+    grid-template-columns: 40px 1fr 80px 70px;
+    gap:10px;
+    padding:8px 0;
+    border-bottom:1px dotted var(--line);
+    align-items:center;
+    font-size:13px;
+  }
+  .job-row:last-child{border-bottom:none}
+  .fit-score{
+    display:inline-block;
+    width:34px;
+    text-align:center;
+    border:1px solid var(--ink);
+    padding:1px 0;
+    font-size:11px;
+    font-weight:500;
+  }
+  .fit-score.high{border-color:#000}
+  .fit-score.low{color:var(--muted); border-style:dashed}
+  .status-pill{
+    font-size:10px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    border:1px solid var(--line);
+    padding:1px 6px;
+    display:inline-block;
+  }
+  .status-pill.active{color:#000; border-color:#000}
+  .status-pill.ghost{border-style:dashed}
+  .source{font-size:11px; color:var(--muted)}
+  .state-machine{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    margin:12px 0 20px 0;
+    flex-wrap:wrap;
+  }
+  .stage{
+    border:1px solid var(--line);
+    padding:4px 10px;
+    color:var(--muted);
+  }
+  .stage.done{border-color:var(--ink); color:var(--ink)}
+  .stage.current{border-color:var(--ink); color:var(--ink); background:#f0efe9; font-weight:500}
+  .arrow{color:var(--muted)}
+  .app-detail h3{
+    font-size:15px;
+    font-weight:500;
+    margin:0 0 2px 0;
+  }
+  .app-detail .company{color:var(--muted); font-size:12px}
+  .staleness-alert{
+    border:1px dashed var(--ink);
+    padding:10px 12px;
+    margin:12px 0;
+    font-size:12px;
+  }
+  .staleness-alert strong{font-weight:500}
+  .draft-box{
+    border:1px solid var(--line);
+    padding:10px 12px;
+    font-family: "SF Mono", ui-monospace, Menlo, monospace;
+    font-size:11px;
+    line-height:1.5;
+    color:#333;
+    background:#fafaf3;
+    margin-top:8px;
+  }
+  .profile-row{
+    display:grid;
+    grid-template-columns: 120px 1fr;
+    gap:10px;
+    padding:4px 0;
+    font-size:12px;
+  }
+  .profile-row .k{color:var(--muted); text-transform:uppercase; font-size:10px; letter-spacing:0.03em; padding-top:3px}
+  .note{
+    margin-top:20px;
+    font-size:11px;
+    color:var(--muted);
+    font-style:italic;
+    border-top:1px dashed var(--line);
+    padding-top:10px;
+  }
+  .full{grid-column: 1 / -1}
+  .btn{
+    display:inline-block;
+    border:1px solid var(--ink);
+    padding:4px 12px;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    margin-right:6px;
+    margin-top:8px;
+    background:#fff;
+    color:var(--ink);
+  }
+  .btn.ghost{border-style:dashed; color:var(--muted); border-color:var(--line)}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>job-tracker</h1>
+    <div class="meta">rough wireframe — approach B (pluggable + inbox-ready) — v0.1</div>
+  </div>
+  <span class="stamp">sketch · not final</span>
+</header>
+
+<div class="grid">
+
+  <!-- VIEW 1: Dashboard / shortlist -->
+  <section class="view">
+    <h2>Dashboard</h2>
+    <div class="subtitle">what landed today + where everything stands</div>
+
+    <div class="metric-row">
+      <div class="metric"><div class="num">23</div><div class="label">active apps</div></div>
+      <div class="metric"><div class="num">6.1%</div><div class="label">reply rate</div></div>
+      <div class="metric"><div class="num">4</div><div class="label">stale &gt;10d</div></div>
+    </div>
+
+    <h2 style="margin-top:8px">New jobs · matched to your profile</h2>
+    <div class="subtitle">fit-score is LLM-computed against your profile.md</div>
+
+    <div class="job-row">
+      <span class="fit-score high">92</span>
+      <div>
+        <div>Senior Data Engineer · Stripe</div>
+        <div class="source">greenhouse · Singapore / remote · posted 2h ago</div>
+      </div>
+      <span class="source">$165k–$210k</span>
+      <a href="#" class="source">apply →</a>
+    </div>
+
+    <div class="job-row">
+      <span class="fit-score high">87</span>
+      <div>
+        <div>ML Engineer (NLP) · Notion</div>
+        <div class="source">lever · APAC · posted 6h ago</div>
+      </div>
+      <span class="source">—</span>
+      <a href="#" class="source">apply →</a>
+    </div>
+
+    <div class="job-row">
+      <span class="fit-score">71</span>
+      <div>
+        <div>Product Engineer · Linear</div>
+        <div class="source">rss · remote · posted 1d ago</div>
+      </div>
+      <span class="source">—</span>
+      <a href="#" class="source">apply →</a>
+    </div>
+
+    <div class="job-row">
+      <span class="fit-score low">43</span>
+      <div>
+        <div>Software Engineer · Palantir</div>
+        <div class="source">company page · SG · posted 3d ago</div>
+      </div>
+      <span class="source">—</span>
+      <a href="#" class="source">apply →</a>
+    </div>
+
+    <div class="note">LLM note: "High-fit ones are Python/data infra roles at product-led companies, which match your profile. The Palantir role scores low because you flagged 'no defense' in your preferences."</div>
+  </section>
+
+  <!-- VIEW 2: Single application detail -->
+  <section class="view">
+    <h2>Application detail</h2>
+    <div class="subtitle">one application · state + history + suggested action</div>
+
+    <div class="app-detail">
+      <h3>Senior Backend Engineer</h3>
+      <div class="company">Stripe · applied 2026-04-03 · via referral (Priya T.)</div>
+    </div>
+
+    <div class="state-machine">
+      <span class="stage done">applied</span>
+      <span class="arrow">→</span>
+      <span class="stage done">recruiter screen</span>
+      <span class="arrow">→</span>
+      <span class="stage current">technical</span>
+      <span class="arrow">→</span>
+      <span class="stage">onsite</span>
+      <span class="arrow">→</span>
+      <span class="stage">offer</span>
+    </div>
+
+    <div class="staleness-alert">
+      <strong>Stale alert.</strong> 12 days since last contact. Average reply time for this stage (across your data) is 5 days. Want to nudge?
+    </div>
+
+    <span class="btn">generate follow-up draft</span>
+    <span class="btn ghost">mark as ghost</span>
+    <span class="btn ghost">update state manually</span>
+
+    <div class="draft-box">
+      Hi Jamie,<br>
+      Just circling back on the technical round we had on the 11th.
+      I enjoyed the system-design discussion and wanted to share a
+      follow-up thought on the rate-limiter approach we talked about...<br>
+      <span style="color:#999">[draft · copies to clipboard · you send from your own Gmail]</span>
+    </div>
+
+    <div class="note">v2: this draft generates and sends automatically with human approval — requires Gmail write OAuth.</div>
+  </section>
+
+  <!-- VIEW 3: Profile / prefs (full width) -->
+  <section class="view full">
+    <h2>Your profile · what the LLM uses for fit-score</h2>
+    <div class="subtitle">single markdown file you edit. The app reads it on every job ingest to compute fit.</div>
+
+    <div class="profile-row"><div class="k">roles</div><div>data engineer · ML engineer · platform eng · backend (Python/Go)</div></div>
+    <div class="profile-row"><div class="k">stage</div><div>series A–C · product-led companies · 50–1000 people</div></div>
+    <div class="profile-row"><div class="k">location</div><div>Singapore, remote-APAC, hybrid-SG</div></div>
+    <div class="profile-row"><div class="k">avoid</div><div>defense · crypto speculation · ad-tech · companies with &gt;3yr runway concerns</div></div>
+    <div class="profile-row"><div class="k">compensation</div><div>SGD 90k+ base · open on equity · relocation help a plus</div></div>
+    <div class="profile-row"><div class="k">I care about</div><div>technical depth of the team · code review culture · clear product thesis</div></div>
+
+    <div class="note">Edit this file and the fit-score re-ranks on next ingest. No UI for editing — it's a .md file on disk. Classic "data is the interface" — the power-user escape hatch.</div>
+  </section>
+
+</div>
+
+<div class="note" style="margin-top:32px">
+  <strong>Pluggable sources (not shown):</strong> rss-feed · greenhouse-ats · lever-ats · manual-url-paste · linkedin-saved-search-rss. Each source implements an <code>IJobSource</code> interface. Adding a new source = one class, no other changes.
+  <br><br>
+  <strong>What's not in v1:</strong> email ingest (v2) · auto-send follow-ups (v2, needs Gmail write scope) · multi-user (v2 if a friend asks) · any polish.
+</div>
+
+</body>
+</html>
