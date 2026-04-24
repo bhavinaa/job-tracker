@@ -1,0 +1,616 @@
+# target_companies.yml
+# Seed input for job discovery tool v1
+# Generated: 2026-04-23 (Phase 1: SG-focused internship hunt. Phase 2: NYC, added later.)
+#
+# ATS types (v1 Tier 1 supported: greenhouse, lever, ashby, workday, google, meta, manual, cold-outreach):
+#   greenhouse     → job-boards.greenhouse.io / boards-api.greenhouse.io (public API)
+#   lever          → jobs.lever.co / api.lever.co (public API)
+#   ashby          → jobs.ashbyhq.com (public API via GraphQL)
+#   workday        → *.myworkdayjobs.com (Playwright required; deferred to v1.x)
+#   workable       → apply.workable.com (v1.x; public API exists)
+#   google         → careers.google.com (custom plugin)
+#   meta           → metacareers.com (custom plugin)
+#   manual         → custom careers site (user pastes URLs; LLM extracts)
+#   cold-outreach  → no public listing / seed-stage / reach via DM
+#   unknown        → still to be resolved (app skips these)
+#
+# Buckets:
+#   big-tech       → Large MNCs with SG presence
+#   finance        → Banks, hedge funds, trading firms
+#   consulting     → MBB + Big 4
+#   sg-tech        → SG-headquartered tech companies
+#   sg-startup     → SG-based startups (Series A–D)
+#   sg-fintech     → SG-based fintech startups
+#   sg-crypto      → SG-based crypto/web3 companies
+#   sg-ai          → SG-based AI startups
+#   sg-enterprise  → SG-based enterprise/B2B SaaS
+#   nyc-phase-2    → deferred; added after internship hunt
+
+companies:
+
+  # ============================================================
+  # Bucket: Big Tech MNCs (SG offices)
+  # ============================================================
+  - name: "TikTok / ByteDance"
+    ats: "manual"                       # lifeattiktok.com custom portal; Workday-ish underneath, not publicly scrape-able
+    config: {}
+    careers_url: "https://lifeattiktok.com/search"
+    buckets: ["big-tech"]
+
+  - name: "Google"
+    ats: "google"
+    config: {}
+    careers_url: "https://careers.google.com"
+    buckets: ["big-tech"]
+
+  - name: "Meta"
+    ats: "meta"
+    config: {}
+    careers_url: "https://www.metacareers.com"
+    buckets: ["big-tech"]
+
+  - name: "Apple"
+    ats: "manual"
+    config: {}
+    careers_url: "https://jobs.apple.com"
+    buckets: ["big-tech"]
+
+  - name: "Microsoft"
+    ats: "manual"
+    config: {}
+    careers_url: "https://careers.microsoft.com"
+    buckets: ["big-tech"]
+
+  - name: "Amazon / AWS"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.amazon.jobs"
+    buckets: ["big-tech"]
+
+  # ============================================================
+  # Bucket: SG Tech (Homegrown / Regional HQ)
+  # ============================================================
+  - name: "Shopee / Sea Limited"
+    ats: "manual"                       # career.sea.com — custom portal
+    config: {}
+    careers_url: "https://career.sea.com/"
+    buckets: ["big-tech", "sg-tech"]
+
+  - name: "Grab"
+    ats: "workday"
+    config: {subdomain: "grab"}
+    careers_url: "https://grab.careers"
+    buckets: ["big-tech", "sg-tech"]
+
+  - name: "Carousell"
+    ats: "greenhouse"
+    config: {board_slug: "carousell"}
+    careers_url: "https://boards.greenhouse.io/carousell"
+    buckets: ["sg-tech"]
+
+  - name: "Lazada"
+    ats: "manual"                       # Alibaba group; custom portal
+    config: {}
+    careers_url: "https://www.lazada.com/en/careers"
+    buckets: ["sg-tech"]
+
+  - name: "Razer"
+    ats: "workday"                       # verified: razer.wd3.myworkdayjobs.com
+    config: {subdomain: "razer.wd3"}
+    careers_url: "https://razer.wd3.myworkdayjobs.com/Careers"
+    buckets: ["sg-tech"]
+
+  - name: "Riot Games"
+    ats: "manual"                       # custom careers portal
+    config: {}
+    careers_url: "https://www.riotgames.com/en/work-with-us"
+    buckets: ["sg-tech"]
+
+  - name: "Visa"
+    ats: "manual"
+    config: {}
+    careers_url: "https://usa.visa.com/careers.html"
+    buckets: ["big-tech", "finance"]
+
+  - name: "Mastercard"
+    ats: "manual"
+    config: {}
+    careers_url: "https://careers.mastercard.com"
+    buckets: ["big-tech", "finance"]
+
+  # ============================================================
+  # Bucket: Finance / Banking (SG offices)
+  # All custom portals (often Workday underneath but gated by login)
+  # ============================================================
+  - name: "JP Morgan"
+    ats: "manual"
+    config: {}
+    careers_url: "https://careers.jpmorgan.com"
+    buckets: ["finance"]
+
+  - name: "Morgan Stanley"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.morganstanley.com/careers"
+    buckets: ["finance"]
+
+  - name: "Goldman Sachs"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.goldmansachs.com/careers"
+    buckets: ["finance"]
+
+  - name: "Citibank"
+    ats: "manual"
+    config: {}
+    careers_url: "https://jobs.citi.com"
+    buckets: ["finance"]
+
+  - name: "DBS"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.dbs.com/careers"
+    buckets: ["finance", "sg-tech"]
+
+  - name: "UBS"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.ubs.com/global/en/careers.html"
+    buckets: ["finance"]
+
+  - name: "Jane Street"
+    ats: "manual"                       # custom portal
+    config: {}
+    careers_url: "https://www.janestreet.com/join-jane-street/open-roles"
+    buckets: ["finance"]
+
+  - name: "Citadel / Citadel Securities"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.citadel.com/careers"
+    buckets: ["finance"]
+
+  # ============================================================
+  # Bucket: Consulting (all manual / custom portals)
+  # ============================================================
+  - name: "McKinsey"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.mckinsey.com/careers"
+    buckets: ["consulting"]
+
+  - name: "BCG"
+    ats: "manual"
+    config: {}
+    careers_url: "https://careers.bcg.com"
+    buckets: ["consulting"]
+
+  - name: "Bain"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.bain.com/careers"
+    buckets: ["consulting"]
+
+  - name: "Accenture"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.accenture.com/sg-en/careers"
+    buckets: ["consulting"]
+
+  - name: "Deloitte"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www2.deloitte.com/sg/en/careers.html"
+    buckets: ["consulting"]
+
+  # ============================================================
+  # Bucket: SG Fintech Startups
+  # ============================================================
+  - name: "Aspire"
+    ats: "greenhouse"
+    config: {board_slug: "aspire"}
+    careers_url: "https://job-boards.greenhouse.io/aspire"
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "Airwallex"
+    ats: "ashby"
+    config: {org_slug: "airwallex"}
+    careers_url: "https://jobs.ashbyhq.com/airwallex"
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "Nium"
+    ats: "lever"
+    config: {company_id: "nium"}
+    careers_url: "https://jobs.lever.co/nium"
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "YouTrip"
+    ats: "manual"                       # verified: uses Workable (apply.workable.com/youtrip) — v1 Tier 1 doesn't support Workable yet
+    config: {note: "workable_user"}
+    careers_url: "https://apply.workable.com/youtrip/"
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "Syfe"
+    ats: "manual"                       # careers.syfe.com custom
+    config: {}
+    careers_url: "https://careers.syfe.com/jobs"
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "DTC Pay"
+    ats: "cold-outreach"                # no verified public career portal
+    config: {}
+    careers_url: ""
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "Thunes"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.thunes.com/careers"
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "Stripe"
+    ats: "greenhouse"
+    config: {board_slug: "stripe"}
+    careers_url: "https://boards.greenhouse.io/stripe"
+    buckets: ["sg-fintech", "big-tech"]
+
+  - name: "Tazapay"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "Funding Societies"
+    ats: "manual"
+    config: {}
+    careers_url: "https://fundingsocieties.com/career"
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "Kredivo Group"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.kredivogroup.com/careers"
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "Singlife"
+    ats: "manual"
+    config: {}
+    careers_url: "https://singlife.com/en/careers"
+    buckets: ["sg-fintech"]
+
+  - name: "ADDX"
+    ats: "lever"                        # verified: jobs.lever.co/addx
+    config: {company_id: "addx"}
+    careers_url: "https://jobs.lever.co/addx"
+    buckets: ["sg-fintech", "sg-crypto"]
+
+  - name: "Qapita"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "GXS Bank"
+    ats: "workday"                       # verified: gxs.wd3.myworkdayjobs.com
+    config: {subdomain: "gxs.wd3"}
+    careers_url: "https://gxs.wd3.myworkdayjobs.com/GXS"
+    buckets: ["sg-fintech"]
+
+  - name: "Tyme Group"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-fintech"]
+
+  - name: "Finture"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-fintech", "sg-startup"]
+
+  - name: "Osome"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-fintech", "sg-startup"]
+
+  # ============================================================
+  # Bucket: SG Crypto / Web3 (mostly cold-outreach at seed stage)
+  # ============================================================
+  - name: "Gotrade"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto", "sg-startup"]
+
+  - name: "Bitget"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto"]
+
+  - name: "Nansen"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto", "sg-startup"]
+
+  - name: "GRVT"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto", "sg-startup"]
+
+  - name: "Alpha Ladder Group"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto", "sg-startup"]
+
+  - name: "Alchemy Pay"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto"]
+
+  - name: "Triple-A"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto", "sg-startup"]
+
+  - name: "SynFutures"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto"]
+
+  - name: "Sky Mavis"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto"]
+
+  - name: "Aethir"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto", "sg-ai"]
+
+  - name: "LBank"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-crypto"]
+
+  # ============================================================
+  # Bucket: SG AI Startups (all cold-outreach — seed/stealth stage)
+  # ============================================================
+  - name: "MiniMax"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-ai", "sg-startup"]
+
+  - name: "Manus AI"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-ai", "sg-startup"]
+
+  - name: "Nextbillion.ai"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-ai", "sg-startup"]
+
+  - name: "Igloo"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-ai", "sg-startup"]
+
+  # ============================================================
+  # Bucket: SG Startups (Other / Mixed)
+  # ============================================================
+  - name: "Boltech"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-startup"]
+
+  - name: "Klook"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.klook.com/careers"
+    buckets: ["sg-startup"]
+
+  - name: "ShopBack"
+    ats: "lever"                        # verified: jobs.lever.co/shopback-2
+    config: {company_id: "shopback-2"}
+    careers_url: "https://jobs.lever.co/shopback-2"
+    buckets: ["sg-startup"]
+
+  - name: "Ninja Van"
+    ats: "lever"                        # verified: jobs.lever.co/ninjavan
+    config: {company_id: "ninjavan"}
+    careers_url: "https://jobs.lever.co/ninjavan"
+    buckets: ["sg-startup"]
+
+  - name: "Airalo"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-startup"]
+
+  - name: "PatSnap"
+    ats: "lever"                        # verified: jobs.lever.co/patsnap
+    config: {company_id: "patsnap"}
+    careers_url: "https://jobs.lever.co/patsnap"
+    buckets: ["sg-startup"]
+
+  - name: "Atlan"
+    ats: "ashby"                        # verified: jobs.ashbyhq.com/atlan
+    config: {org_slug: "atlan"}
+    careers_url: "https://jobs.ashbyhq.com/atlan"
+    buckets: ["sg-startup", "sg-enterprise"]
+
+  - name: "Trax"
+    ats: "manual"                       # traxretail.com — custom
+    config: {}
+    careers_url: "https://traxretail.com/company/careers/"
+    buckets: ["sg-startup"]
+
+  - name: "Secretlab"
+    ats: "manual"
+    config: {}
+    careers_url: "https://secretlab.sg/pages/careers"
+    buckets: ["sg-startup"]
+
+  - name: "Intellect"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-startup"]
+
+  - name: "Shein"
+    ats: "manual"
+    config: {}
+    careers_url: "https://careers.shein.com"
+    buckets: ["sg-startup", "big-tech"]
+
+  - name: "LingoAce"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-startup"]
+
+  - name: "SleekFlow"
+    ats: "manual"
+    config: {}
+    careers_url: "https://sleekflow.io/career"
+    buckets: ["sg-startup", "sg-ai"]
+
+  - name: "AfterShip"
+    ats: "greenhouse"                   # verified: boards.greenhouse.io/aftership
+    config: {board_slug: "aftership"}
+    careers_url: "https://boards.greenhouse.io/aftership"
+    buckets: ["sg-enterprise", "sg-startup"]
+
+  - name: "Wego"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-startup"]
+
+  - name: "MyRepublic"
+    ats: "cold-outreach"
+    config: {}
+    careers_url: ""
+    buckets: ["sg-tech"]
+
+  # ============================================================
+  # Bucket: Enterprise / B2B SaaS (mostly deferred — phase 2 / 3)
+  # ============================================================
+  - name: "Notion"
+    ats: "greenhouse"                   # Notion uses Greenhouse (widely documented)
+    config: {board_slug: "notion"}
+    careers_url: "https://boards.greenhouse.io/notion"
+    buckets: ["big-tech"]
+
+  - name: "Figma"
+    ats: "lever"
+    config: {company_id: "figma"}
+    careers_url: "https://jobs.lever.co/figma"
+    buckets: ["big-tech"]
+
+  - name: "Palantir"
+    ats: "manual"                       # custom portal
+    config: {}
+    careers_url: "https://www.palantir.com/careers"
+    buckets: ["big-tech"]
+
+  - name: "Confluent"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.confluent.io/careers"
+    buckets: ["big-tech", "sg-enterprise"]
+
+  - name: "Datadog"
+    ats: "greenhouse"
+    config: {board_slug: "datadog"}
+    careers_url: "https://boards.greenhouse.io/datadog"
+    buckets: ["big-tech", "sg-enterprise"]
+
+  - name: "Snowflake"
+    ats: "manual"
+    config: {}
+    careers_url: "https://careers.snowflake.com"
+    buckets: ["big-tech", "sg-enterprise"]
+
+  - name: "Atlassian"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.atlassian.com/company/careers"
+    buckets: ["big-tech"]
+
+  - name: "Salesforce"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.salesforce.com/company/careers"
+    buckets: ["big-tech", "sg-enterprise"]
+
+  - name: "Workday"
+    ats: "workday"
+    config: {subdomain: "workday"}
+    careers_url: "https://www.workday.com/en-us/company/careers.html"
+    buckets: ["big-tech", "sg-enterprise"]
+
+  - name: "ServiceNow"
+    ats: "manual"
+    config: {}
+    careers_url: "https://www.servicenow.com/careers.html"
+    buckets: ["big-tech", "sg-enterprise"]
+
+  - name: "SAP"
+    ats: "manual"
+    config: {}
+    careers_url: "https://jobs.sap.com"
+    buckets: ["big-tech", "sg-enterprise"]
+
+# ============================================================
+# Summary (post-resolve, 2026-04-23)
+# ============================================================
+# Total companies: 82
+#
+# ATS breakdown:
+#   greenhouse:    8  (Carousell, Stripe, Aspire, Notion, Datadog, AfterShip + 2 existing)
+#   lever:         7  (Nium, Figma, ADDX, ShopBack, Ninja Van, PatSnap + 1 existing)
+#   ashby:         2  (Airwallex, Atlan)
+#   workday:       4  (Grab, GXS Bank, Razer, Workday)       # Tier 3 — Playwright required; deferred v1.x
+#   google:        1  (Google)
+#   meta:          1  (Meta)
+#   manual:       34  (banks, consulting, big-tech with custom portals, SG mid-stage without standard ATS)
+#   cold-outreach:25  (seed/stealth SG startups with no public careers page — reach via DM / warm intro)
+#   unknown:       0  (all resolved)
+#
+# Tier 1 coverage (v1 automates): 18 companies across greenhouse + lever + ashby + google + meta.
+#   These companies will be POLLED automatically once v1 ships.
+#
+# Tier 2 (v1.x): workday (4 companies). Needs Playwright.
+#
+# Manual: 34 companies — user pastes URLs when a new role of interest appears. Still valuable; just more effort.
+#
+# Cold-outreach: 25 companies — these skip ATS polling entirely. User adds recipients
+#   (name + role + email/linkedin) and the app drafts cold emails per the v0.3 design.
+#
+# Verification legend:
+#   # verified: <ATS endpoint>   → confirmed via web search against the live careers page
+#   (no comment)                 → defaulted from heuristic (banks / consulting / big-tech with custom portals → manual)
+#                                  or from stage (SG seed-stage with no careers page → cold-outreach)
+#
+# Next time you sit down with this file:
+#   1. Spot-check a few "manual" tags — some might actually be Greenhouse/Lever if you browse
+#      the link and find it redirects (many company careers.com/jobs pages embed Greenhouse boards).
+#   2. For "cold-outreach" entries, add recipient names from LinkedIn as you find them.
+#   3. Phase 2: add NYC companies to a new bucket once internship hunt wraps.

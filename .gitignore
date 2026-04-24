@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# gstack runtime (browse daemon state, logs)
+.gstack/
+
+# Python (for when v1 build starts)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Local config (user's actual profile + secrets)
+profile.md
+.config/
